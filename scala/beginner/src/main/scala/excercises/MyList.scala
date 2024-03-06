@@ -18,6 +18,10 @@ abstract class MyList[+A] {
   def printElements: String
   override def toString: String = s"[${printElements}]"
 
+  def map[B](transformer: MyTransformer[A, B]): MyList[B]
+  def flatMap[B](transformer: MyTransformer[A, MyList[B]]): MyList[B]
+  def filter(predicate: MyPredicate[A]): MyList[A]
+
 }
 
 object Empty extends MyList[Nothing] {
@@ -26,6 +30,12 @@ object Empty extends MyList[Nothing] {
   def isEmpty: Boolean = true
   def add[B >: Nothing](element: B): MyList[B] = new Cons(element, Empty)
   def printElements: String = ""
+
+  def map[B](transformer: MyTransformer[Nothing, B]): MyList[B] = Empty
+
+  def flatMap[B](transformer: MyTransformer[Nothing, MyList[B]]): MyList[B] = Empty
+
+  def filter(predicate: MyPredicate[Nothing]): MyList[Nothing] = Empty
 }
 
 class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
@@ -36,6 +46,14 @@ class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   def printElements: String =
     if (t.isEmpty) "" + h
     else s"$h ${t.printElements}"
+}
+
+trait MyPredicate[-T] {
+  def test(elem: T): Boolean
+}
+
+trait MyTransformer[-A, B] {
+  def transform(elem: A): B
 }
 
 object ListTest extends App {
