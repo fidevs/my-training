@@ -29,7 +29,7 @@ object Enums {
 
   // Standard API
   val somePermissionsOrdinal = somePermissions.ordinal
-  val allPermissions = somePermissions.values // array of all possible values of the enum
+  val allPermissions = Permissions.values // array of all possible values of the enum
   val readPermissions: Permissions = Permissions.valueOf("READ") // Permissions.READ
 
   def main(args: Array[String]): Unit = {
