@@ -6,7 +6,7 @@ import playground.{PrinceCharming, Cinderella as Princess}
 import java.util.Date
 import java.sql.{Date => SqlDate}
 
-object PackagingAndImports {
+object PackagingAndImports extends App {
 
   // package members are accessible by their simple name
   val writer = new Writer("Omar", "RockTheJVM", 2020) // (part2oop.OOBasics)
